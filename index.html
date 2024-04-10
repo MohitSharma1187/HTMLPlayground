@@ -33,12 +33,11 @@
 
     <!-- JavaScript -->
     <script>
-        //  to track CSS and dark mode state
+        // to track CSS and dark mode state
         let cssEnabled = false;
         let darkMode = false;
 
         // Function to toggle CSS
-      // Function to toggle CSS
         function toggleCSS() {
             cssEnabled = !cssEnabled;
 
@@ -66,22 +65,41 @@
             }
         }
 
-
-        // Function to toggle dark mode
         function toggleTheme() {
             darkMode = !darkMode;
             const body = document.body;
+            const header = document.querySelector("header");
+            const nav = document.querySelector("nav");
+            const main = document.querySelector("main");
 
             if (darkMode) {
                 // Enable dark mode
                 body.classList.add("dark-theme");
+                header.classList.add("dark-theme");
+                nav.classList.add("dark-theme");
+                main.classList.add("dark-theme");
                 document.getElementById("toggleThemeButton").innerText = "Go Light Mode";
             } else {
                 // Disable dark mode
                 body.classList.remove("dark-theme");
+                header.classList.remove("dark-theme");
+                nav.classList.remove("dark-theme");
+                main.classList.remove("dark-theme");
                 document.getElementById("toggleThemeButton").innerText = "Go Dark Mode";
+
+                // Reset all elements to default styles
+                header.style.backgroundColor = '';
+                nav.style.backgroundColor = '';
+                main.style.backgroundColor = '';
+                const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
+                textElements.forEach(element => {
+                    element.style.color = '';
+                });
             }
         }
+
+
+
 
         // Function to shuffle array elements
         function shuffleArray(array) {
@@ -93,42 +111,44 @@
         }
 
         // Function to apply random colors
-      // Function to apply random colors
-        // Function to apply random colors
-            function goRandom() {
-                // Define arrays for background and text colors
-                const backgroundColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#0080ff'];
-                const textColors = ['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff'];
+        function goRandom() {
+            // Define arrays for background and text colors
+            const backgroundColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#0080ff'];
+            const textColors = ['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff'];
 
-                // Shuffle both arrays to ensure random colors for background and text
-                shuffleArray(backgroundColors);
-                shuffleArray(textColors);
+            // Shuffle both arrays to ensure random colors for background and text
+            shuffleArray(backgroundColors);
+            shuffleArray(textColors);
 
-                // Apply random background color to header
-                const randomHeaderColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-                document.querySelector("header").style.backgroundColor = randomHeaderColor;
+            // Apply random background color to header
+            const randomHeaderColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+            document.querySelector("header").style.backgroundColor = randomHeaderColor;
 
-                // Apply random background color to nav
-                const randomNavColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-                document.querySelector("nav").style.backgroundColor = randomNavColor;
+            // Apply random background color to nav
+            const randomNavColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+            document.querySelector("nav").style.backgroundColor = randomNavColor;
 
-                // Apply random background color to main
-                const randomMainColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-                document.querySelector("main").style.backgroundColor = randomMainColor;
+            // Apply random background color to main
+            const randomMainColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+            document.querySelector("main").style.backgroundColor = randomMainColor;
 
-                // Apply random text color to all relevant elements
-                const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
-                textElements.forEach((element, index) => {
-                    element.style.color = textColors[index];
-                });
+            // Apply random text color to all relevant elements
+            const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
+            textElements.forEach((element, index) => {
+                element.style.color = textColors[index];
+            });
 
-                // Apply random text color to specific elements
-                const specificElements = document.querySelectorAll("header h1, nav a, main h2, main p, button");
-                specificElements.forEach((element, index) => {
-                    element.style.color = textColors[index];
-                });
+            // Apply random text color to specific elements
+            const specificElements = document.querySelectorAll("header h1, nav a, main h2, main p, button");
+            specificElements.forEach((element, index) => {
+                element.style.color = textColors[index];
+            });
+
+            // If dark mode is enabled, reapply it after random colors
+            if (darkMode) {
+                toggleTheme();
             }
-
+        }
 
         // Function to reset random colors
         function resetRandom() {
