@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Example HTML Website</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Website</h1>
+    </header>
+
+ 
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Project</a></li> 
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <h2>Welcome to My Website</h2>
+        <p>This is a simple website.</p>
+
+        <!-- Buttons -->
+        <button onclick="toggleCSS()" id="button">Toggle CSS</button>
+        <button onclick="toggleTheme()" id="toggleThemeButton" style="display:none;">Go Dark Mode</button>
+        <button onclick="goRandom()" id="goRandomButton" style="display:none;">Go Random</button>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        //  to track CSS and dark mode state
+        let cssEnabled = false;
+        let darkMode = false;
+
+        // Function to toggle CSS
+        function toggleCSS() {
+            cssEnabled = !cssEnabled;
+
+            if (cssEnabled) {
+                // Enable CSS
+                document.head.innerHTML += '<link rel="stylesheet" href="./styles.css">';
+                // Show dark mode and random buttons
+                document.getElementById("button").innerText = "Disable CSS";
+                document.getElementById("toggleThemeButton").style.display = "inline-block";
+                document.getElementById("goRandomButton").style.display = "inline-block";
+            } else {
+                // Disable CSS
+                const links = document.querySelectorAll("link[rel='stylesheet']");
+                links.forEach(link => link.remove());
+                // Hide dark mode and random buttons
+                document.getElementById("button").innerText = "Toggle CSS";
+                document.getElementById("toggleThemeButton").style.display = "none";
+                document.getElementById("goRandomButton").style.display = "none";
+                // Reset random colors
+                resetRandom();
+            }
+        }
+
+        // Function to toggle dark mode
+        function toggleTheme() {
+            darkMode = !darkMode;
+            const body = document.body;
+
+            if (darkMode) {
+                // Enable dark mode
+                body.classList.add("dark-theme");
+                document.getElementById("toggleThemeButton").innerText = "Go Light Mode";
+            } else {
+                // Disable dark mode
+                body.classList.remove("dark-theme");
+                document.getElementById("toggleThemeButton").innerText = "Go Dark Mode";
+            }
+        }
+
+        // Function to shuffle array elements
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to apply random colors
+        function goRandom() {
+            // Define arrays for background and text colors
+            const backgroundColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#0080ff'];
+            const textColors = ['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff'];
+
+            // Shuffle textColors array to ensure each text element gets a different color
+            shuffleArray(textColors);
+
+            // Get random index for colors
+            const randomIndex = Math.floor(Math.random() * backgroundColors.length);
+
+            // Apply random background color
+            document.body.style.backgroundColor = backgroundColors[randomIndex];
+
+            // Apply random text color to all relevant elements
+            const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
+            textElements.forEach(element => {
+                element.style.color = textColors[randomIndex];
+            });
+        }
+
+        // Function to reset random colors
+        function resetRandom() {
+            // Reset background color
+            document.body.style.backgroundColor = '';
+
+            // Reset text color for all relevant elements
+            const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
+            textElements.forEach(element => {
+                element.style.color = '';
+            });
+        }
+    </script>
+
+</body>
+
+</html>
