@@ -11,12 +11,12 @@
         <h1>My Website</h1>
     </header>
 
- 
+
     <nav>
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Project</a></li> 
+            <li><a href="#">Project</a></li>
         </ul>
     </nav>
 
@@ -38,6 +38,7 @@
         let darkMode = false;
 
         // Function to toggle CSS
+      // Function to toggle CSS
         function toggleCSS() {
             cssEnabled = !cssEnabled;
 
@@ -58,8 +59,13 @@
                 document.getElementById("goRandomButton").style.display = "none";
                 // Reset random colors
                 resetRandom();
+                // Reset background color for header, nav, and main
+                document.querySelector("header").style.backgroundColor = '';
+                document.querySelector("nav").style.backgroundColor = '';
+                document.querySelector("main").style.backgroundColor = '';
             }
         }
+
 
         // Function to toggle dark mode
         function toggleTheme() {
@@ -87,26 +93,42 @@
         }
 
         // Function to apply random colors
-        function goRandom() {
-            // Define arrays for background and text colors
-            const backgroundColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#0080ff'];
-            const textColors = ['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff'];
+      // Function to apply random colors
+        // Function to apply random colors
+            function goRandom() {
+                // Define arrays for background and text colors
+                const backgroundColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#0080ff'];
+                const textColors = ['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff'];
 
-            // Shuffle textColors array to ensure each text element gets a different color
-            shuffleArray(textColors);
+                // Shuffle both arrays to ensure random colors for background and text
+                shuffleArray(backgroundColors);
+                shuffleArray(textColors);
 
-            // Get random index for colors
-            const randomIndex = Math.floor(Math.random() * backgroundColors.length);
+                // Apply random background color to header
+                const randomHeaderColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+                document.querySelector("header").style.backgroundColor = randomHeaderColor;
 
-            // Apply random background color
-            document.body.style.backgroundColor = backgroundColors[randomIndex];
+                // Apply random background color to nav
+                const randomNavColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+                document.querySelector("nav").style.backgroundColor = randomNavColor;
 
-            // Apply random text color to all relevant elements
-            const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
-            textElements.forEach(element => {
-                element.style.color = textColors[randomIndex];
-            });
-        }
+                // Apply random background color to main
+                const randomMainColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+                document.querySelector("main").style.backgroundColor = randomMainColor;
+
+                // Apply random text color to all relevant elements
+                const textElements = document.querySelectorAll("h1, h2, p, nav a, button");
+                textElements.forEach((element, index) => {
+                    element.style.color = textColors[index];
+                });
+
+                // Apply random text color to specific elements
+                const specificElements = document.querySelectorAll("header h1, nav a, main h2, main p, button");
+                specificElements.forEach((element, index) => {
+                    element.style.color = textColors[index];
+                });
+            }
+
 
         // Function to reset random colors
         function resetRandom() {
